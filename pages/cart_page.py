@@ -157,6 +157,7 @@ class CartPage(Base):
         self.get_data_policy_note().click()
         print('Clicked Data policy Note')
 
+
     # Methods
     def method_complex_cart_check(self):
         self.get_current_url()
