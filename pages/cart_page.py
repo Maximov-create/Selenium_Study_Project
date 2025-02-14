@@ -194,7 +194,7 @@ class CartPage(Base):
         product_price_without_discount = self.get_info_item_price().text
         product_old_price = self.get_product_old_price().text
         assert product_price_without_discount == product_old_price, "Item price and old price DON'T match ERROR"
-        print("___Item price and old price MATCH OK")
+        print("Item price and old price MATCH OK")
 
         # Вычисление скидки путем вычисление новой цены из старой
         old_price = int(self.get_product_old_price().text.replace(' ', '').replace('₽', ''))
@@ -204,13 +204,13 @@ class CartPage(Base):
         # Проверка корректного отображения скидки с полученным выше значением
         info_discount = self.get_item_discount_gift_on().text.replace(' ', '').replace('-', '').replace('₽', '')
         assert discount_num == info_discount, "Discount number DOESN'T match ERROR"
-        print('___Discount number MATCH OK')
+        print('Discount number MATCH OK')
 
         # Проверка на отображение корректной цены. Складывается новая цена с ценой подарочной упаковки
         gift_option_price = int(self.get_gift_option_price().text.replace(' ', '').replace('₽', ''))
         final_price = int(self.get_info_final_price_gift_on().text.replace(' ', '').replace('₽', ''))
         assert new_price + gift_option_price == final_price, 'Final price ERROR'
-        print('___Final price MATCH OK')
+        print('Final price MATCH OK')
 
         self.click_order_button()
         sleep(3)

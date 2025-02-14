@@ -1,3 +1,4 @@
+import pytest
 from pages.cart_page import CartPage
 from pages.main_page import MainPage
 from pages.sales_page import SalesPage
@@ -7,15 +8,13 @@ from selenium.webdriver.chrome.options import Options
 from time import sleep
 from base.helpful import clear_screens_directory
 
-clear_screens_directory() # Для очистки директории со скриншотами перед запуском тестов
 
-def test_complex_case_1():
+def test_complex_case_1(set_up_clear):
     driver = webdriver.Chrome()
 
     driver.get('https://www.chitai-gorod.ru')
     driver.maximize_window()
 
-    print('TEST START')
     mp = MainPage(driver)
     mp.method_choose_city()
     mp.click_sales_link_button()
@@ -37,5 +36,4 @@ def test_complex_case_1():
     cp = CartPage(driver)
     cp.method_complex_cart_check()
 
-    print('TEST FINISH')
     driver.quit()
