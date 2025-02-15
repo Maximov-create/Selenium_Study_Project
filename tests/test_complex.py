@@ -1,12 +1,12 @@
-import pytest
 from pages.cart_page import CartPage
 from pages.main_page import MainPage
 from pages.sales_page import SalesPage
 from pages.t_book_page import TBookPage
+from base.helpful import clear_screens_directory
+from utilities.conftest import set_up_clear
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from time import sleep
-from base.helpful import clear_screens_directory
 
 
 def test_complex_case_1(set_up_clear):

@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from base.base_class import Base
 from time import sleep
+from utilities.logger import Logger
 
 
 class CartPage(Base):
@@ -160,6 +161,7 @@ class CartPage(Base):
 
     # Methods
     def method_complex_cart_check(self):
+        Logger.add_start_step(method='method_complex_cart_check')
         self.get_current_url()
         self.assert_url('https://www.chitai-gorod.ru/cart')
         self.click_promocode_field()
@@ -232,4 +234,5 @@ class CartPage(Base):
         self.driver.switch_to.window(self.driver.window_handles[0])
         sleep(3)
         self.get_screenshot('Final Picture')
+        Logger.add_end_step(url=self.driver.current_url, method='method_complex_cart_check')
 

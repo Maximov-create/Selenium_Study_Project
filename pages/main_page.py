@@ -4,6 +4,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from base.base_class import Base
 from time import sleep
+from utilities.logger import Logger
 
 
 class MainPage(Base):
@@ -78,6 +79,7 @@ class MainPage(Base):
 
     # Methods
     def method_choose_city(self):
+        Logger.add_start_step(method='method_choose_city')
         self.get_current_url()
         self.assert_url('https://www.chitai-gorod.ru/')
         self.click_city_header_button()
@@ -89,3 +91,4 @@ class MainPage(Base):
         self.click_list_city_2()
         sleep(5)
         self.get_screenshot('City Changed')
+        Logger.add_end_step(url=self.driver.current_url, method='method_choose_city')

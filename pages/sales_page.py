@@ -6,6 +6,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from base.base_class import Base
 from time import sleep
+from utilities.logger import Logger
 
 
 class SalesPage(Base):
@@ -117,6 +118,7 @@ class SalesPage(Base):
 
     # Methods
     def method_complex_filters(self):
+        Logger.add_start_step(method='method_complex_filters')
         self.get_current_url()
         self.assert_url('https://www.chitai-gorod.ru/sales')
         self.assert_word(self.get_sales_header_title(), 'РАСПРОДАЖА')  # Сверяем заголовок
@@ -152,3 +154,4 @@ class SalesPage(Base):
         self.input_year_range_input_right('2022')
         sleep(5)
         self.get_screenshot('Filters')
+        Logger.add_end_step(url=self.driver.current_url, method='method_complex_filters')
