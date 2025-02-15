@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from base.base_class import Base
 from time import sleep
 from utilities.logger import Logger
+import allure
 
 
 class MainPage(Base):
@@ -79,16 +80,17 @@ class MainPage(Base):
 
     # Methods
     def method_choose_city(self):
-        Logger.add_start_step(method='method_choose_city')
-        self.get_current_url()
-        self.assert_url('https://www.chitai-gorod.ru/')
-        self.click_city_header_button()
-        self.click_change_city_button()
-        self.click_select_country_dropdown_menu()
-        self.click_Belarus_list_button()
-        self.click_city_input_field()
-        self.input_city_input_field(city_name='Пинск')
-        self.click_list_city_2()
-        sleep(5)
-        self.get_screenshot('City Changed')
-        Logger.add_end_step(url=self.driver.current_url, method='method_choose_city')
+        with allure.step('method_choose_city'):
+            Logger.add_start_step(method='method_choose_city')
+            self.get_current_url()
+            self.assert_url('https://www.chitai-gorod.ru/')
+            self.click_city_header_button()
+            self.click_change_city_button()
+            self.click_select_country_dropdown_menu()
+            self.click_Belarus_list_button()
+            self.click_city_input_field()
+            self.input_city_input_field(city_name='Пинск')
+            self.click_list_city_2()
+            sleep(5)
+            self.get_screenshot('City Changed')
+            Logger.add_end_step(url=self.driver.current_url, method='method_choose_city')

@@ -1,0 +1,72 @@
+SCREENS DIRECTORY CLEARED
+TEST START
+CURRENT URL: https://www.chitai-gorod.ru/
+URL ASSERTION OK = https://www.chitai-gorod.ru/
+Clicked City header Button
+Clicked Change city Button
+Clicked Select country dropdown menu Button
+Clicked Belarus list Button
+Clicked (Activated) city name Field
+Inputted Пинск in City input Field
+Clicked list city 2
+SCREENSHOT MADE City Changed
+Clicked Sales link Button
+
+CURRENT URL: https://www.chitai-gorod.ru/sales
+URL ASSERTION OK = https://www.chitai-gorod.ru/sales
+VALUE ASSERTION OK = РАСПРОДАЖА
+Clicked Minimal sort Button
+Clicked Minimal sort by popularity
+Clicked РОСМЭН filter Checkbox
+Clicked Эксмо filter Checkbox
+Clicked (Activated) Author filter Field
+Inputted Александ Серг Пушк in Author filter Field
+Clicked author Александр Сергеевич Пушкин in search List
+Clicked Hardcover Checkbox
+Moved year slider left
+Clicked year range input right
+Inputted year range input right
+SCREENSHOT MADE Filters
+Clicked test book
+
+CURRENT URL: https://www.chitai-gorod.ru/product/kapitanskaya-dochka-7736446
+Капитанская дочка. Повести 16+
+Пушкин Александр
+Эксмо
+Clicked Reviews number text Button
+Clicked Offer bonus info Button
+SCREENSHOT MADE Info Bonus
+Clicked Scroll arrow button Button
+Clicked Buy product Button
+VALUE ASSERTION OK = 1
+Clicked Cart Icon
+
+CURRENT URL: https://www.chitai-gorod.ru/cart
+URL ASSERTION OK = https://www.chitai-gorod.ru/cart
+Clicked (Activated) Promocode Field
+Inputted 1234 in Promocode Field
+Clicked Promocode submit Button
+VALUE ASSERTION OK = Промокода не существует
+Clicked Clear promocode Button
+Clicked Order gift Checkbox
+Clicked Order gift box Checkbox
+Clicked Gift box Spoiler
+SCREENSHOT MADE Gift Picture
+Clicked Find out more Button
+VALUE ASSERTION OK = Оформление и доставка заказов в подарок
+SCREENSHOT MADE Ordering Info
+Clicked Gift order info close Button
+VALUE ASSERTION OK = 1 товар
+VALUE ASSERTION OK = 1 товар
+Item price and old price MATCH OK
+Discount number MATCH OK
+Final price MATCH OK
+Clicked Order Button
+Clicked Agreement personal Note
+VALUE ASSERTION OK = СОГЛАСИЕ НА ОБРАБОТКУ ПЕРСОНАЛЬНЫХ ДАННЫХ
+SCREENSHOT MADE Agreement Info Page
+Clicked Data policy Note
+VALUE ASSERTION OK = ПОЛИТИКА В ОТНОШЕНИИ ОБРАБОТКИ ПЕРСОНАЛЬНЫХ ДАННЫХ
+SCREENSHOT MADE Policy Info Page
+SCREENSHOT MADE Final Picture
+TEST FINISH

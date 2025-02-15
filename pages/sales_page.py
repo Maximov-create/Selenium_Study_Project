@@ -7,6 +7,7 @@ from selenium.webdriver.common.keys import Keys
 from base.base_class import Base
 from time import sleep
 from utilities.logger import Logger
+import allure
 
 
 class SalesPage(Base):
@@ -118,40 +119,41 @@ class SalesPage(Base):
 
     # Methods
     def method_complex_filters(self):
-        Logger.add_start_step(method='method_complex_filters')
-        self.get_current_url()
-        self.assert_url('https://www.chitai-gorod.ru/sales')
-        self.assert_word(self.get_sales_header_title(), 'РАСПРОДАЖА')  # Сверяем заголовок
-        self.click_minimal_sort_open_button()
-        self.click_minimal_sort_by_popularity()
-        sleep(5)
-        self.driver.execute_script("window.scrollTo(0, 1100);")
-        sleep(3)
-        self.click_rosmen_filter_checkbox()
-        sleep(5)
-        self.driver.execute_script("window.scrollTo(0, 750);")
-        sleep(3)
-        self.click_exmo_filter_checkbox()
-        sleep(5)
-        self.driver.execute_script("window.scrollTo(0, 1200);")
-        sleep(3)
-        self.click_author_filter_field()
-        self.input_author_filter_field('Александ Серг Пушк')  # Значение специально неполное
-        self.click_author_Alexander_Pushkin_search_li()
-        sleep(5)
-        self.driver.execute_script("window.scrollTo(0, 1600);")
-        sleep(3)
-        self.click_hardcover_checkbox()
-        sleep(5)
-        self.driver.execute_script("window.scrollTo(0, 1700);")
-        sleep(3)
-        self.move_year_slider_left(120, 0)
-        sleep(5)
-        self.driver.execute_script("window.scrollTo(0, 1700);")
-        sleep(3)
-        self.click_year_range_input_right()
-        sleep(5)
-        self.input_year_range_input_right('2022')
-        sleep(5)
-        self.get_screenshot('Filters')
-        Logger.add_end_step(url=self.driver.current_url, method='method_complex_filters')
+        with allure.step('method_complex_filters'):
+            Logger.add_start_step(method='method_complex_filters')
+            self.get_current_url()
+            self.assert_url('https://www.chitai-gorod.ru/sales')
+            self.assert_word(self.get_sales_header_title(), 'РАСПРОДАЖА')  # Сверяем заголовок
+            self.click_minimal_sort_open_button()
+            self.click_minimal_sort_by_popularity()
+            sleep(5)
+            self.driver.execute_script("window.scrollTo(0, 1100);")
+            sleep(3)
+            self.click_rosmen_filter_checkbox()
+            sleep(5)
+            self.driver.execute_script("window.scrollTo(0, 750);")
+            sleep(3)
+            self.click_exmo_filter_checkbox()
+            sleep(5)
+            self.driver.execute_script("window.scrollTo(0, 1200);")
+            sleep(3)
+            self.click_author_filter_field()
+            self.input_author_filter_field('Александ Серг Пушк')  # Значение специально неполное
+            self.click_author_Alexander_Pushkin_search_li()
+            sleep(5)
+            self.driver.execute_script("window.scrollTo(0, 1600);")
+            sleep(3)
+            self.click_hardcover_checkbox()
+            sleep(5)
+            self.driver.execute_script("window.scrollTo(0, 1700);")
+            sleep(3)
+            self.move_year_slider_left(120, 0)
+            sleep(5)
+            self.driver.execute_script("window.scrollTo(0, 1700);")
+            sleep(3)
+            self.click_year_range_input_right()
+            sleep(5)
+            self.input_year_range_input_right('2022')
+            sleep(5)
+            self.get_screenshot('Filters')
+            Logger.add_end_step(url=self.driver.current_url, method='method_complex_filters')

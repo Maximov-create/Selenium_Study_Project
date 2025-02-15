@@ -7,8 +7,9 @@ from utilities.conftest import set_up_clear
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from time import sleep
+import allure
 
-
+@allure.description('test_complex_case_1')  #####
 def test_complex_case_1(set_up_clear):
     driver = webdriver.Chrome()
 

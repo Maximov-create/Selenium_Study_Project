@@ -6,6 +6,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from base.base_class import Base
 from time import sleep
 from utilities.logger import Logger
+import allure
 
 
 class CartPage(Base):
@@ -161,78 +162,79 @@ class CartPage(Base):
 
     # Methods
     def method_complex_cart_check(self):
-        Logger.add_start_step(method='method_complex_cart_check')
-        self.get_current_url()
-        self.assert_url('https://www.chitai-gorod.ru/cart')
-        self.click_promocode_field()
-        self.input_promocode_field('1234')
-        self.click_promocode_submit_button()
-        sleep(3)
-        self.assert_word(self.get_promocode_message_error(), 'Промокода не существует')
-        self.click_clear_promocode_button()
-        sleep(3)
-        self.click_order_gift_checkbox()
-        sleep(3)
-        self.click_order_gift_box_checkbox()
-        sleep(3)
-        self.click_gift_box_spoiler()
-        self.driver.execute_script("window.scrollTo(0, 450);")
-        sleep(3)
-        self.get_screenshot('Gift Picture')
-        self.click_find_out_more_button()
-        sleep(3)
-        self.assert_word(self.get_gift_order_info_header(), 'Оформление и доставка заказов в подарок')
-        self.get_screenshot('Ordering Info')
-        sleep(3)
-        self.click_gift_order_info_close_button()
-        sleep(3)
-        self.driver.execute_script("window.scrollTo(0, 650);")
+        with allure.step('method_complex_cart_check'):
+            Logger.add_start_step(method='method_complex_cart_check')
+            self.get_current_url()
+            self.assert_url('https://www.chitai-gorod.ru/cart')
+            self.click_promocode_field()
+            self.input_promocode_field('1234')
+            self.click_promocode_submit_button()
+            sleep(3)
+            self.assert_word(self.get_promocode_message_error(), 'Промокода не существует')
+            self.click_clear_promocode_button()
+            sleep(3)
+            self.click_order_gift_checkbox()
+            sleep(3)
+            self.click_order_gift_box_checkbox()
+            sleep(3)
+            self.click_gift_box_spoiler()
+            self.driver.execute_script("window.scrollTo(0, 450);")
+            sleep(3)
+            self.get_screenshot('Gift Picture')
+            self.click_find_out_more_button()
+            sleep(3)
+            self.assert_word(self.get_gift_order_info_header(), 'Оформление и доставка заказов в подарок')
+            self.get_screenshot('Ordering Info')
+            sleep(3)
+            self.click_gift_order_info_close_button()
+            sleep(3)
+            self.driver.execute_script("window.scrollTo(0, 650);")
 
-        # Проверка отображения корректного кол-ва товара
-        self.assert_word(self.get_title_product_quantity(), '1 товар')
-        self.assert_word(self.get_info_item_quantity(), '1 товар')
+            # Проверка отображения корректного кол-ва товара
+            self.assert_word(self.get_title_product_quantity(), '1 товар')
+            self.assert_word(self.get_info_item_quantity(), '1 товар')
 
-        # Проверка, что отображаемая цена без скидки равна отображаемой прежней цене товара
-        product_price_without_discount = self.get_info_item_price().text
-        product_old_price = self.get_product_old_price().text
-        assert product_price_without_discount == product_old_price, "Item price and old price DON'T match ERROR"
-        print("Item price and old price MATCH OK")
+            # Проверка, что отображаемая цена без скидки равна отображаемой прежней цене товара
+            product_price_without_discount = self.get_info_item_price().text
+            product_old_price = self.get_product_old_price().text
+            assert product_price_without_discount == product_old_price, "Item price and old price DON'T match ERROR"
+            print("Item price and old price MATCH OK")
 
-        # Вычисление скидки путем вычисление новой цены из старой
-        old_price = int(self.get_product_old_price().text.replace(' ', '').replace('₽', ''))
-        new_price = int(self.get_product_new_price().text.split()[0])
-        discount_num = str(old_price - new_price)
+            # Вычисление скидки путем вычисление новой цены из старой
+            old_price = int(self.get_product_old_price().text.replace(' ', '').replace('₽', ''))
+            new_price = int(self.get_product_new_price().text.split()[0])
+            discount_num = str(old_price - new_price)
 
-        # Проверка корректного отображения скидки с полученным выше значением
-        info_discount = self.get_item_discount_gift_on().text.replace(' ', '').replace('-', '').replace('₽', '')
-        assert discount_num == info_discount, "Discount number DOESN'T match ERROR"
-        print('Discount number MATCH OK')
+            # Проверка корректного отображения скидки с полученным выше значением
+            info_discount = self.get_item_discount_gift_on().text.replace(' ', '').replace('-', '').replace('₽', '')
+            assert discount_num == info_discount, "Discount number DOESN'T match ERROR"
+            print('Discount number MATCH OK')
 
-        # Проверка на отображение корректной цены. Складывается новая цена с ценой подарочной упаковки
-        gift_option_price = int(self.get_gift_option_price().text.replace(' ', '').replace('₽', ''))
-        final_price = int(self.get_info_final_price_gift_on().text.replace(' ', '').replace('₽', ''))
-        assert new_price + gift_option_price == final_price, 'Final price ERROR'
-        print('Final price MATCH OK')
+            # Проверка на отображение корректной цены. Складывается новая цена с ценой подарочной упаковки
+            gift_option_price = int(self.get_gift_option_price().text.replace(' ', '').replace('₽', ''))
+            final_price = int(self.get_info_final_price_gift_on().text.replace(' ', '').replace('₽', ''))
+            assert new_price + gift_option_price == final_price, 'Final price ERROR'
+            print('Final price MATCH OK')
 
-        self.click_order_button()
-        sleep(3)
-        self.click_agreement_personal_note()
-        self.driver.switch_to.window(self.driver.window_handles[1])
-        sleep(5)
-        self.assert_word(self.get_agreement_page_title(), 'СОГЛАСИЕ НА ОБРАБОТКУ ПЕРСОНАЛЬНЫХ ДАННЫХ')
-        self.get_screenshot('Agreement Info Page')
-        self.driver.close()
-        self.driver.switch_to.window(self.driver.window_handles[0])
+            self.click_order_button()
+            sleep(3)
+            self.click_agreement_personal_note()
+            self.driver.switch_to.window(self.driver.window_handles[1])
+            sleep(5)
+            self.assert_word(self.get_agreement_page_title(), 'СОГЛАСИЕ НА ОБРАБОТКУ ПЕРСОНАЛЬНЫХ ДАННЫХ')
+            self.get_screenshot('Agreement Info Page')
+            self.driver.close()
+            self.driver.switch_to.window(self.driver.window_handles[0])
 
-        sleep(3)
-        self.click_data_policy_note()
-        self.driver.switch_to.window(self.driver.window_handles[1])
-        sleep(5)
-        self.assert_word(self.get_data_policy_title(), 'ПОЛИТИКА В ОТНОШЕНИИ ОБРАБОТКИ ПЕРСОНАЛЬНЫХ ДАННЫХ')
-        self.get_screenshot('Policy Info Page')
-        self.driver.close()
-        self.driver.switch_to.window(self.driver.window_handles[0])
-        sleep(3)
-        self.get_screenshot('Final Picture')
-        Logger.add_end_step(url=self.driver.current_url, method='method_complex_cart_check')
+            sleep(3)
+            self.click_data_policy_note()
+            self.driver.switch_to.window(self.driver.window_handles[1])
+            sleep(5)
+            self.assert_word(self.get_data_policy_title(), 'ПОЛИТИКА В ОТНОШЕНИИ ОБРАБОТКИ ПЕРСОНАЛЬНЫХ ДАННЫХ')
+            self.get_screenshot('Policy Info Page')
+            self.driver.close()
+            self.driver.switch_to.window(self.driver.window_handles[0])
+            sleep(3)
+            self.get_screenshot('Final Picture')
+            Logger.add_end_step(url=self.driver.current_url, method='method_complex_cart_check')
 

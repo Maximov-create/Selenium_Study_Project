@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from base.base_class import Base
 from time import sleep
 from utilities.logger import Logger
+import allure
 
 
 class TBookPage(Base):
@@ -91,20 +92,21 @@ class TBookPage(Base):
 
     # Methods
     def method_complex_buy_product(self):
-        Logger.add_start_step(method='method_complex_buy_product')
-        self.get_current_url()
-        self.show_product_header_title()
-        self.show_author_title()
-        self.show_publisher_title_upper()
-        self.click_reviews_number_text_button()
-        sleep(3)
-        self.click_offer_bonus_info_button()
-        sleep(3)
-        self.get_screenshot('Info Bonus')
-        sleep(3)
-        self.click_scroll_arrow_button()
-        sleep(3)
-        self.click_buy_product_button()
-        sleep(3)
-        self.assert_word(self.get_cart_num_badge(), '1')  # Проверка, что возле иконки корзины появилась цифра 1
-        Logger.add_end_step(url=self.driver.current_url, method='method_complex_buy_product')
+        with allure.step('method_complex_buy_product'):
+            Logger.add_start_step(method='method_complex_buy_product')
+            self.get_current_url()
+            self.show_product_header_title()
+            self.show_author_title()
+            self.show_publisher_title_upper()
+            self.click_reviews_number_text_button()
+            sleep(3)
+            self.click_offer_bonus_info_button()
+            sleep(3)
+            self.get_screenshot('Info Bonus')
+            sleep(3)
+            self.click_scroll_arrow_button()
+            sleep(3)
+            self.click_buy_product_button()
+            sleep(3)
+            self.assert_word(self.get_cart_num_badge(), '1')  # Проверка, что возле иконки корзины появилась цифра 1
+            Logger.add_end_step(url=self.driver.current_url, method='method_complex_buy_product')
