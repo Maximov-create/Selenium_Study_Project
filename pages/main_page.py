@@ -15,10 +15,10 @@ class MainPage(Base):
     city_header_button = '//button[@class="header-city header-top-bar__city"]'
     change_city_button = '//div[@class="button change-city__button change-city__button--cancel light-blue"]'
     select_country_dropdown_menu = '//div[@class="app-select city-modal__select"]'
-    Belarus_list_button = '(//li[@class="app-select__list-item"])[1]'
-    city_input_field = '(//input[@type="text"])[2]'
-    list_city_2 = '//li[@class="cities-list__item"][2]'
-    sales_link_button = '//a[@class="header-bottom__link"][2]'
+    Belarus_list_button = '//li[contains(@class, "app-select__list-item") and contains(.//span, "Беларусь")]'
+    city_input_field = '//input[@class="city-modal__city-input"]'
+    list_city_choice = '//li[contains(@class, "cities-list__item") and contains(text(), "д. Ермаки, Район Пинский, обл. Брестская")]'
+    sales_link_button = '//a[contains(@class, "header-bottom__link") and contains(text(), "Распродажа")]'
 
 
     # Getters
@@ -38,7 +38,7 @@ class MainPage(Base):
         return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.city_input_field)))
 
     def get_list_city_2(self):
-        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.list_city_2)))
+        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.list_city_choice)))
 
     def get_sales_link_button(self):
         return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.sales_link_button)))

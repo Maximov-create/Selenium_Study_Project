@@ -15,19 +15,17 @@ class SalesPage(Base):
 
     # Locators
     minimal_sort_open_button = '//div[@class="minimal-sort__button"]'
-    minimal_sort_by_popularity = '//div[@class="minimal-sort__item"][1]'
-    rosmen_filter_checkbox = '(//div[@class="checkbox-native__control checkbox-native__control--search"])[5]'
-    exmo_filter_checkbox = '(//div[@class="checkbox-native__control checkbox-native__control--search"])[2]'
+    minimal_sort_by_popularity = '//div[contains(@class, "minimal-sort__item") and contains(text(), "По популярности")]'
+    rosmen_filter_checkbox = '//span[contains(@class, "multiple-select-options__item-text") and contains(text(), "РОСМЭН")]'
+    exmo_filter_checkbox = '//span[contains(@class, "multiple-select-options__item-text") and contains(text(), "Эксмо")]'
     author_filter_field = '//input[@placeholder="Найти больше авторов"]'
-    author_Victor_Pushkin_search_li = '//li[@class="app-input__item"][2]'
-    book_Victor_Pushkin = '//div[@class="product-title__author"]'
-    author_Alexander_Pushkin_search_li = '//li[@class="app-input__item"][1]'
-    hardcover_checkbox = '(//div[@class="checkbox-native__control checkbox-native__control--search"])[22]'
+    author_Alexander_Pushkin_search_li = '//li[contains(@class, "app-input__item") and contains(text(), "Александр Сергеевич Пушкин")]'
+    hardcover_checkbox = '//span[contains(@class, "multiple-select-options__item-text") and contains(text(), "Твёрдый переплёт")]'
     year_slider_left = '//div[@class="vue-slider-dot-handle"]'
     year_range_input_right = '(//input[@class="app-range-input__input"])[2]'
     test_book_first_any = '//a[@class="product-card__picture product-card__row"][1]'
     sales_header_title = '//h1[@class="app-catalog-page__title"]'
-
+    # Локаторы должны быть привязаны, индексы могут сместиться и тогда все ляжет
 
     # Getters
     def get_minimal_sort_open_button(self):
@@ -148,12 +146,14 @@ class SalesPage(Base):
             self.driver.execute_script("window.scrollTo(0, 1700);")
             sleep(3)
             self.move_year_slider_left(120, 0)
-            sleep(5)
+            sleep(3)
             self.driver.execute_script("window.scrollTo(0, 1700);")
             sleep(3)
             self.click_year_range_input_right()
-            sleep(5)
+            sleep(3)
             self.input_year_range_input_right('2022')
-            sleep(5)
+            sleep(3)
+            self.driver.execute_script("window.scrollTo(0, 200);")
+            sleep(3)
             self.get_screenshot('Filters')
             Logger.add_end_step(url=self.driver.current_url, method='method_complex_filters')
